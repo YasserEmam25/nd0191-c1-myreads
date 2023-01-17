@@ -2,6 +2,7 @@ import { getAll } from "../BooksAPI"
 
 const getBooks = (setCurrentlyReadingBooks, setReadBooks, setWantToReadBooks) => {
     getAll().then(books => {
+        console.log(books);
         books.map(book => {
           if (book.shelf === "currentlyReading") {
             setCurrentlyReadingBooks(currentlyReadingBooks => [...currentlyReadingBooks, book]);
@@ -11,8 +12,6 @@ const getBooks = (setCurrentlyReadingBooks, setReadBooks, setWantToReadBooks) =>
             setWantToReadBooks(wantToReadBooks => [...wantToReadBooks, book]);
           }
         });
-    
-        
       })
 }
 
