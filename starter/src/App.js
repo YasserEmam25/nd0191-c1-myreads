@@ -1,8 +1,19 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import getBooks from './services/getBooks';
+import { getAll } from "./BooksAPI";
+
 
 function App() {
   const [showSearchPage, setShowSearchpage] = useState(false);
+
+  let [currentlyReadingBooks, setCurrentlyReadingBooks] = useState([]);
+  let [readBooks, setReadBooks] = useState([]);
+  let [wantToReadBooks, setWantToReadBooks] = useState([]);
+
+  useEffect(() => {
+    getBooks(setCurrentlyReadingBooks, setReadBooks, setWantToReadBooks);
+  }, []);
 
   return (
     <div className="app">
