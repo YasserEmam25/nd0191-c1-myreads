@@ -1,9 +1,8 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import "./App.css";
 import { useEffect, useState } from "react";
-import getBooks from './services/getBooks';
-import { getAll, update } from "./BooksAPI";
+import getBooks from "./services/getBooks";
 import updateBooks from "./services/updateBooks";
-
 
 function App() {
   const [showSearchPage, setShowSearchpage] = useState(false);
@@ -50,33 +49,71 @@ function App() {
                 <div className="bookshelf-books">
                   <ol className="books-grid">
                     {currentlyReadingBooks.map((book, i) => {
-                      return (<li>
-                        <div className="book">
-                          <div className="book-top">
-                            <div
-                              className="book-cover"
-                              style={{
-                                width: 128,
-                                height: 193,
-                                backgroundImage:
-                                  `url(${book.imageLinks.thumbnail})`,
-                              }}
-                            ></div>
-                            <div className="book-shelf-changer">
+                      return (
+                        <li>
+                          <div className="book">
+                            <div className="book-top">
+                              <div
+                                className="book-cover"
+                                style={{
+                                  width: 128,
+                                  height: 193,
+                                  backgroundImage: `url(${book.imageLinks.thumbnail})`,
+                                }}
+                              ></div>
+                              <div className="book-shelf-changer">
                                 <select>
                                   <option value="none" disabled>
                                     Move to...
                                   </option>
-                                  <option onClick={() => {updateBooks(book, 'wantToRead', setCurrentlyReadingBooks, setWantToReadBooks)}} value="wantToRead">Want to Read</option>
-                                  <option onClick={() => {updateBooks(book, 'read', setCurrentlyReadingBooks, setReadBooks)}} value="read">Read</option>
-                                  <option onClick={() => {updateBooks(book, 'none', setCurrentlyReadingBooks)}} value="none">None</option>
+                                  <option
+                                    onClick={() => {
+                                      updateBooks(
+                                        book,
+                                        "wantToRead",
+                                        setCurrentlyReadingBooks,
+                                        setWantToReadBooks
+                                      );
+                                    }}
+                                    value="wantToRead"
+                                  >
+                                    Want to Read
+                                  </option>
+                                  <option
+                                    onClick={() => {
+                                      updateBooks(
+                                        book,
+                                        "read",
+                                        setCurrentlyReadingBooks,
+                                        setReadBooks
+                                      );
+                                    }}
+                                    value="read"
+                                  >
+                                    Read
+                                  </option>
+                                  <option
+                                    onClick={() => {
+                                      updateBooks(
+                                        book,
+                                        "none",
+                                        setCurrentlyReadingBooks
+                                      );
+                                    }}
+                                    value="none"
+                                  >
+                                    None
+                                  </option>
                                 </select>
+                              </div>
+                            </div>
+                            <div className="book-title">{book.title}</div>
+                            <div className="book-authors">
+                              {book.authors[0]}
                             </div>
                           </div>
-                          <div className="book-title">{book.title}</div>
-                          <div className="book-authors">{book.authors[0]}</div>
-                        </div>
-                      </li>);
+                        </li>
+                      );
                     })}
                   </ol>
                 </div>
@@ -86,7 +123,8 @@ function App() {
                 <div className="bookshelf-books">
                   <ol className="books-grid">
                     {wantToReadBooks.map((book, i) => {
-                        return (<li>
+                      return (
+                        <li>
                           <div className="book">
                             <div className="book-top">
                               <div
@@ -94,8 +132,7 @@ function App() {
                                 style={{
                                   width: 128,
                                   height: 193,
-                                  backgroundImage:
-                                    `url(${book.imageLinks.thumbnail})`,
+                                  backgroundImage: `url(${book.imageLinks.thumbnail})`,
                                 }}
                               ></div>
                               <div className="book-shelf-changer">
@@ -103,19 +140,55 @@ function App() {
                                   <option value="none" disabled>
                                     Move to...
                                   </option>
-                                  <option onClick={() => {updateBooks(book, 'currentlyReading', setWantToReadBooks, setCurrentlyReadingBooks)}} value="currentlyReading">
+                                  <option
+                                    onClick={() => {
+                                      updateBooks(
+                                        book,
+                                        "currentlyReading",
+                                        setWantToReadBooks,
+                                        setCurrentlyReadingBooks
+                                      );
+                                    }}
+                                    value="currentlyReading"
+                                  >
                                     Currently Reading
                                   </option>
-                                  <option onClick={() => {updateBooks(book, 'read', setWantToReadBooks, setReadBooks)}} value="read">Read</option>
-                                  <option onClick={() => {updateBooks(book, 'none', setWantToReadBooks)}} value="none">None</option>
+                                  <option
+                                    onClick={() => {
+                                      updateBooks(
+                                        book,
+                                        "read",
+                                        setWantToReadBooks,
+                                        setReadBooks
+                                      );
+                                    }}
+                                    value="read"
+                                  >
+                                    Read
+                                  </option>
+                                  <option
+                                    onClick={() => {
+                                      updateBooks(
+                                        book,
+                                        "none",
+                                        setWantToReadBooks
+                                      );
+                                    }}
+                                    value="none"
+                                  >
+                                    None
+                                  </option>
                                 </select>
                               </div>
                             </div>
                             <div className="book-title">{book.title}</div>
-                            <div className="book-authors">{book.authors[0]}</div>
+                            <div className="book-authors">
+                              {book.authors[0]}
+                            </div>
                           </div>
-                        </li>);
-                      })}
+                        </li>
+                      );
+                    })}
                   </ol>
                 </div>
               </div>
@@ -124,7 +197,8 @@ function App() {
                 <div className="bookshelf-books">
                   <ol className="books-grid">
                     {readBooks.map((book, i) => {
-                        return (<li>
+                      return (
+                        <li>
                           <div className="book">
                             <div className="book-top">
                               <div
@@ -132,8 +206,7 @@ function App() {
                                 style={{
                                   width: 128,
                                   height: 193,
-                                  backgroundImage:
-                                    `url(${book.imageLinks.thumbnail})`,
+                                  backgroundImage: `url(${book.imageLinks.thumbnail})`,
                                 }}
                               ></div>
                               <div className="book-shelf-changer">
@@ -141,19 +214,51 @@ function App() {
                                   <option value="none" disabled>
                                     Move to...
                                   </option>
-                                  <option onClick={() => {updateBooks(book, 'currentlyReading', setReadBooks, setCurrentlyReadingBooks);}} value="currentlyReading">
+                                  <option
+                                    onClick={() => {
+                                      updateBooks(
+                                        book,
+                                        "currentlyReading",
+                                        setReadBooks,
+                                        setCurrentlyReadingBooks
+                                      );
+                                    }}
+                                    value="currentlyReading"
+                                  >
                                     Currently Reading
                                   </option>
-                                  <option onClick={() => {updateBooks(book, 'wantToRead', setReadBooks, setWantToReadBooks)}} value="wantToRead">Want to Read</option>
-                                  <option onClick={() => {updateBooks(book, 'none', setReadBooks)}} value="none">None</option>
+                                  <option
+                                    onClick={() => {
+                                      updateBooks(
+                                        book,
+                                        "wantToRead",
+                                        setReadBooks,
+                                        setWantToReadBooks
+                                      );
+                                    }}
+                                    value="wantToRead"
+                                  >
+                                    Want to Read
+                                  </option>
+                                  <option
+                                    onClick={() => {
+                                      updateBooks(book, "none", setReadBooks);
+                                    }}
+                                    value="none"
+                                  >
+                                    None
+                                  </option>
                                 </select>
                               </div>
                             </div>
                             <div className="book-title">{book.title}</div>
-                            <div className="book-authors">{book.authors[0]}</div>
+                            <div className="book-authors">
+                              {book.authors[0]}
+                            </div>
                           </div>
-                        </li>);
-                      })}
+                        </li>
+                      );
+                    })}
                   </ol>
                 </div>
               </div>
