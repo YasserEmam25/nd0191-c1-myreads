@@ -1,7 +1,8 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import getBooks from './services/getBooks';
-import { getAll } from "./BooksAPI";
+import { getAll, update } from "./BooksAPI";
+import updateBooks from "./services/updateBooks";
 
 
 function App() {
@@ -62,17 +63,14 @@ function App() {
                               }}
                             ></div>
                             <div className="book-shelf-changer">
-                              <select>
-                                <option value="none" disabled>
-                                  Move to...
-                                </option>
-                                <option value="currentlyReading">
-                                  Currently Reading
-                                </option>
-                                <option value="wantToRead">Want to Read</option>
-                                <option value="read">Read</option>
-                                <option value="none">None</option>
-                              </select>
+                                <select>
+                                  <option value="none" disabled>
+                                    Move to...
+                                  </option>
+                                  <option onClick={() => {updateBooks(book, 'wantToRead', setCurrentlyReadingBooks, setWantToReadBooks)}} value="wantToRead">Want to Read</option>
+                                  <option onClick={() => {updateBooks(book, 'read', setCurrentlyReadingBooks, setReadBooks)}} value="read">Read</option>
+                                  <option onClick={() => {updateBooks(book, 'none', setCurrentlyReadingBooks)}} value="none">None</option>
+                                </select>
                             </div>
                           </div>
                           <div className="book-title">{book.title}</div>
@@ -105,12 +103,11 @@ function App() {
                                   <option value="none" disabled>
                                     Move to...
                                   </option>
-                                  <option value="currentlyReading">
+                                  <option onClick={() => {updateBooks(book, 'currentlyReading', setWantToReadBooks, setCurrentlyReadingBooks)}} value="currentlyReading">
                                     Currently Reading
                                   </option>
-                                  <option value="wantToRead">Want to Read</option>
-                                  <option value="read">Read</option>
-                                  <option value="none">None</option>
+                                  <option onClick={() => {updateBooks(book, 'read', setWantToReadBooks, setReadBooks)}} value="read">Read</option>
+                                  <option onClick={() => {updateBooks(book, 'none', setWantToReadBooks)}} value="none">None</option>
                                 </select>
                               </div>
                             </div>
@@ -144,12 +141,11 @@ function App() {
                                   <option value="none" disabled>
                                     Move to...
                                   </option>
-                                  <option value="currentlyReading">
+                                  <option onClick={() => {updateBooks(book, 'currentlyReading', setReadBooks, setCurrentlyReadingBooks);}} value="currentlyReading">
                                     Currently Reading
                                   </option>
-                                  <option value="wantToRead">Want to Read</option>
-                                  <option value="read">Read</option>
-                                  <option value="none">None</option>
+                                  <option onClick={() => {updateBooks(book, 'wantToRead', setReadBooks, setWantToReadBooks)}} value="wantToRead">Want to Read</option>
+                                  <option onClick={() => {updateBooks(book, 'none', setReadBooks)}} value="none">None</option>
                                 </select>
                               </div>
                             </div>
