@@ -25,12 +25,12 @@ const BookItem = ({
             }}
           ></div>
           <div className="book-shelf-changer">
-            <select>
+            <select defaultValue={shelfName}>
               <option value="none" disabled>
                 Move to...
               </option>
               <option
-                selected={shelfName === "currentlyReading"}
+                // selected={shelfName === "currentlyReading"}
                 onClick={() => {
                   updateBooks(
                     book,
@@ -44,7 +44,7 @@ const BookItem = ({
                 Currently Reading
               </option>
               <option
-                selected={shelfName === "wantToRead"}
+                // selected={shelfName === "wantToRead"}
                 onClick={() => {
                   updateBooks(
                     book,
@@ -58,7 +58,7 @@ const BookItem = ({
                 Want to Read
               </option>
               <option
-                selected={shelfName === "read"}
+                // selected={shelfName === "read"}
                 onClick={() => {
                   updateBooks(book, "read", removeFromShelvesArr, setReadBooks);
                 }}
@@ -67,11 +67,11 @@ const BookItem = ({
                 Read
               </option>
               <option
-                selected={shelfName === "none"}
+                // selected={shelfName === "none"}
                 onClick={() => {
                   updateBooks(book, "none", removeFromShelvesArr);
                 }}
-                value="none"
+                value="NONE"
               >
                 None
               </option>
@@ -80,7 +80,7 @@ const BookItem = ({
         </div>
         <div className="book-title">{book.title}</div>
         <div className="book-authors">
-          {book.authors ? book.authors[0] : null}
+          {book.authors ? book.authors.map((author) => author) : null}
         </div>
       </div>
     </li>

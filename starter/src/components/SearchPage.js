@@ -43,12 +43,13 @@ const SearchPage = () => {
       <div className="search-books-results">
         <ol className="books-grid">
           {searchedBooks.map((book, i) => {
-            let shelf = "none";
+            let shelf = "NONE";
             booksOnShelves.forEach((bookOnShelf) => {
               if (bookOnShelf.id === book.id) {
                 shelf = bookOnShelf.shelf;
               }
             });
+            // console.log(shelf);
             return <BookItem book={book} shelfName={shelf} />;
           })}
         </ol>

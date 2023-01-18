@@ -7,7 +7,6 @@ const getBooks = (
 ) => {
   getAll().then((books) => {
     books.forEach((book) => {
-      console.log(book);
       if (book.shelf === "currentlyReading") {
         setCurrentlyReadingBooks((currentlyReadingBooks) => [
           ...currentlyReadingBooks,
