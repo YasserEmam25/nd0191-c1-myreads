@@ -12,6 +12,7 @@ const MainPage = () => {
 
   useEffect(() => {
     getBooks(setCurrentlyReadingBooks, setReadBooks, setWantToReadBooks);
+    return [];
   }, []);
 
   return (
