@@ -5,7 +5,13 @@ import getBooks from "./services/getBooks";
 import updateBooks from "./services/updateBooks";
 import searchBooks from "./services/searchBooks";
 import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Routes,
+} from "react-router-dom";
 import SearchPage from "./components/SearchPage";
 import MainPage from "./components/MainPage";
 
@@ -25,7 +31,15 @@ function App() {
   }, []);
 
   return (
-    <div className="app">{showSearchPage ? <SearchPage /> : <MainPage />}</div>
+    // <div className="app">{showSearchPage ? <SearchPage /> : <MainPage />}</div>
+    <div className="app">
+      {
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/search" element={<SearchPage />} />
+        </Routes>
+      }
+    </div>
   );
 }
 
