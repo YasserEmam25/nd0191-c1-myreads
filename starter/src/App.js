@@ -7,7 +7,6 @@ import MainPage from "./components/MainPage";
 
 function App() {
   return (
-    // <div className="app">{showSearchPage ? <SearchPage /> : <MainPage />}</div>
     <div className="app">
       {
         <Routes>
