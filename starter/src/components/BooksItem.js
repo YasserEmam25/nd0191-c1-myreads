@@ -8,6 +8,7 @@ const BookItem = ({
   setCurrentlyReadingBooks,
   setReadBooks,
   setWantToReadBooks,
+  shelfName,
 }) => {
   return (
     <li key={book.id}>
@@ -29,6 +30,7 @@ const BookItem = ({
                 Move to...
               </option>
               <option
+                selected={shelfName === "currentlyReading"}
                 onClick={() => {
                   updateBooks(
                     book,
@@ -37,11 +39,12 @@ const BookItem = ({
                     setCurrentlyReadingBooks
                   );
                 }}
-                value="read"
+                value="currentlyReading"
               >
                 Currently Reading
               </option>
               <option
+                selected={shelfName === "wantToRead"}
                 onClick={() => {
                   updateBooks(
                     book,
@@ -55,6 +58,7 @@ const BookItem = ({
                 Want to Read
               </option>
               <option
+                selected={shelfName === "read"}
                 onClick={() => {
                   updateBooks(book, "read", removeFromShelvesArr, setReadBooks);
                 }}
@@ -63,6 +67,7 @@ const BookItem = ({
                 Read
               </option>
               <option
+                selected={shelfName === "none"}
                 onClick={() => {
                   updateBooks(book, "none", removeFromShelvesArr);
                 }}

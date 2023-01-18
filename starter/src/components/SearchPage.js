@@ -1,14 +1,23 @@
 import "../App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import searchBooks from "../services/searchBooks";
 import React from "react";
 import { Link } from "react-router-dom";
 import BookItem from "./BooksItem";
+import { getAll } from "../BooksAPI";
 
 const SearchPage = () => {
   let [searchedBooks, setSearchedBooks] = useState([]);
 
   let [searchInp, setSearchInp] = useState([]);
+
+  let [booksOnShelves, setBooksOnShelves] = useState([]);
+
+  useEffect(() => {
+    getAll().then((books) => {
+      setBooksOnShelves(books);
+    });
+  }, []);
 
   return (
     <div className="search-books">
@@ -33,9 +42,15 @@ const SearchPage = () => {
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {searchedBooks.map((book, i) => (
-            <BookItem book={book} />
-          ))}
+          {searchedBooks.map((book, i) => {
+            let shelf = "none";
+            booksOnShelves.forEach((bookOnShelf) => {
+              if (bookOnShelf.id === book.id) {
+                shelf = bookOnShelf.shelf;
+              }
+            });
+            return <BookItem book={book} shelfName={shelf} />;
+          })}
         </ol>
       </div>
     </div>

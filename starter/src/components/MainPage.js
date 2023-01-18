@@ -33,6 +33,7 @@ const MainPage = () => {
                     setCurrentlyReadingBooks={setCurrentlyReadingBooks}
                     setReadBooks={setReadBooks}
                     setWantToReadBooks={setWantToReadBooks}
+                    shelfName={"currentlyReading"}
                   />
                 ))}
               </ol>
@@ -49,6 +50,7 @@ const MainPage = () => {
                     setCurrentlyReadingBooks={setCurrentlyReadingBooks}
                     setReadBooks={setReadBooks}
                     setWantToReadBooks={setWantToReadBooks}
+                    shelfName={"wantToRead"}
                   />
                 ))}
               </ol>
@@ -65,6 +67,7 @@ const MainPage = () => {
                     setCurrentlyReadingBooks={setCurrentlyReadingBooks}
                     setReadBooks={setReadBooks}
                     setWantToReadBooks={setWantToReadBooks}
+                    shelfName={"read"}
                   />
                 ))}
               </ol>
