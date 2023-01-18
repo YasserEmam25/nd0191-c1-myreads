@@ -1,11 +1,15 @@
 import { update } from "../BooksAPI";
 
-const updateBooks = (book, shelf, firstSetter, secondSetter) => {
+const updateBooks = (book, shelf, removeFromShelvesArr, toShelf) => {
     update(book, shelf);
     
-    firstSetter(oldArr => oldArr.filter(itr => itr.id !== book.id));
+    if (removeFromShelvesArr) {
+        removeFromShelvesArr.forEach(setter => {
+            setter(oldArr => oldArr.filter(itr => itr.id !== book.id));
+        });
+    }
 
-    if (secondSetter) {secondSetter(oldArr => [...oldArr, book]);}
+    if (toShelf) {toShelf(oldArr => [...oldArr, book]);}
 }
 
 export default updateBooks;

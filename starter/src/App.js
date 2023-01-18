@@ -3,6 +3,7 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import getBooks from "./services/getBooks";
 import updateBooks from "./services/updateBooks";
+import searchBooks from "./services/searchBooks";
 
 function App() {
   const [showSearchPage, setShowSearchpage] = useState(false);
@@ -10,6 +11,10 @@ function App() {
   let [currentlyReadingBooks, setCurrentlyReadingBooks] = useState([]);
   let [readBooks, setReadBooks] = useState([]);
   let [wantToReadBooks, setWantToReadBooks] = useState([]);
+
+  let [searchedBooks, setSearchedBooks] = useState([]);
+
+  let [searchInp, setSearchInp] = useState([]);
 
   useEffect(() => {
     getBooks(setCurrentlyReadingBooks, setReadBooks, setWantToReadBooks);
@@ -28,13 +33,102 @@ function App() {
             </a>
             <div className="search-books-input-wrapper">
               <input
+                key={'search-input'}
                 type="text"
+                value={searchInp}
                 placeholder="Search by title, author, or ISBN"
+                onChange={(e) => {
+                  setSearchInp(e.target.value);
+                  searchBooks(e.target.value.toLowerCase().trim()).then(res => {setSearchedBooks(res)});
+                }}
               />
             </div>
           </div>
           <div className="search-books-results">
-            <ol className="books-grid"></ol>
+            <ol className="books-grid">
+               {searchedBooks.map((book, i) => {
+                      return (
+                        <li key={book.id}>
+                          <div className="book">
+                            <div className="book-top">
+                              <div
+                                className="book-cover"
+                                style={{
+                                  width: 128,
+                                  height: 193,
+                                  backgroundImage: book.imageLinks? `url(${book.imageLinks.thumbnail})`: null,
+                                }}
+                              ></div>
+                              <div className="book-shelf-changer">
+                                <select>
+                                  <option value="none" disabled>
+                                    Move to...
+                                  </option>
+                                  <option
+                                    onClick={() => {
+                                      updateBooks(
+                                        book,
+                                        "currentlyReading",
+                                      );
+                                    }}
+                                    value="currentlyReading"
+                                  >
+                                    Currently Reading
+                                  </option>
+                                  <option
+                                    onClick={() => {
+                                      updateBooks(
+                                        book,
+                                        "wantToRead",
+                                        [setCurrentlyReadingBooks,
+                                        setReadBooks],
+                                        setWantToReadBooks
+                                      );
+                                    }}
+                                    value="wantToRead"
+                                  >
+                                    Want to Read
+                                  </option>
+                                  <option
+                                    onClick={() => {
+                                      updateBooks(
+                                        book,
+                                        "read",
+                                        [setCurrentlyReadingBooks,
+                                        setWantToReadBooks],
+                                        setReadBooks
+                                      );
+                                    }}
+                                    value="read"
+                                  >
+                                    Read
+                                  </option>
+                                  <option
+                                    onClick={() => {
+                                      updateBooks(
+                                        book,
+                                        "none",
+                                        [setCurrentlyReadingBooks,
+                                          setWantToReadBooks,
+                                          setReadBooks]
+                                      );
+                                    }}
+                                    value="none"
+                                  >
+                                    None
+                                  </option>
+                                </select>
+                              </div>
+                            </div>
+                            <div className="book-title">{book.title}</div>
+                            <div className="book-authors">
+                              {book.authors?book.authors[0]: null}
+                            </div>
+                          </div>
+                        </li>
+                      );
+                    })}
+            </ol>
           </div>
         </div>
       ) : (
@@ -50,7 +144,7 @@ function App() {
                   <ol className="books-grid">
                     {currentlyReadingBooks.map((book, i) => {
                       return (
-                        <li>
+                        <li key={book.id}>
                           <div className="book">
                             <div className="book-top">
                               <div
@@ -71,7 +165,7 @@ function App() {
                                       updateBooks(
                                         book,
                                         "wantToRead",
-                                        setCurrentlyReadingBooks,
+                                        [setCurrentlyReadingBooks],
                                         setWantToReadBooks
                                       );
                                     }}
@@ -84,7 +178,7 @@ function App() {
                                       updateBooks(
                                         book,
                                         "read",
-                                        setCurrentlyReadingBooks,
+                                        [setCurrentlyReadingBooks],
                                         setReadBooks
                                       );
                                     }}
@@ -97,7 +191,7 @@ function App() {
                                       updateBooks(
                                         book,
                                         "none",
-                                        setCurrentlyReadingBooks
+                                        [setCurrentlyReadingBooks]
                                       );
                                     }}
                                     value="none"
@@ -124,7 +218,7 @@ function App() {
                   <ol className="books-grid">
                     {wantToReadBooks.map((book, i) => {
                       return (
-                        <li>
+                        <li key={book.id}>
                           <div className="book">
                             <div className="book-top">
                               <div
@@ -145,7 +239,7 @@ function App() {
                                       updateBooks(
                                         book,
                                         "currentlyReading",
-                                        setWantToReadBooks,
+                                        [setWantToReadBooks],
                                         setCurrentlyReadingBooks
                                       );
                                     }}
@@ -158,7 +252,7 @@ function App() {
                                       updateBooks(
                                         book,
                                         "read",
-                                        setWantToReadBooks,
+                                        [setWantToReadBooks],
                                         setReadBooks
                                       );
                                     }}
@@ -171,7 +265,7 @@ function App() {
                                       updateBooks(
                                         book,
                                         "none",
-                                        setWantToReadBooks
+                                        [setWantToReadBooks]
                                       );
                                     }}
                                     value="none"
@@ -198,7 +292,7 @@ function App() {
                   <ol className="books-grid">
                     {readBooks.map((book, i) => {
                       return (
-                        <li>
+                        <li key={book.id}>
                           <div className="book">
                             <div className="book-top">
                               <div
@@ -219,7 +313,7 @@ function App() {
                                       updateBooks(
                                         book,
                                         "currentlyReading",
-                                        setReadBooks,
+                                        [setReadBooks],
                                         setCurrentlyReadingBooks
                                       );
                                     }}
@@ -232,7 +326,7 @@ function App() {
                                       updateBooks(
                                         book,
                                         "wantToRead",
-                                        setReadBooks,
+                                        [setReadBooks],
                                         setWantToReadBooks
                                       );
                                     }}
@@ -242,7 +336,7 @@ function App() {
                                   </option>
                                   <option
                                     onClick={() => {
-                                      updateBooks(book, "none", setReadBooks);
+                                      updateBooks(book, "none", [setReadBooks]);
                                     }}
                                     value="none"
                                   >
