@@ -1,23 +1,14 @@
 import "../App.css";
 import { useEffect, useState } from "react";
 import getBooks from "../services/getBooks";
-import updateBooks from "../services/updateBooks";
-import searchBooks from "../services/searchBooks";
-import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import SearchPage from "./SearchPage";
+import React from "react";
+import { Link } from "react-router-dom";
 import BookItem from "./BooksItem";
 
 const MainPage = () => {
-  const [showSearchPage, setShowSearchpage] = useState(false);
-
   let [currentlyReadingBooks, setCurrentlyReadingBooks] = useState([]);
   let [readBooks, setReadBooks] = useState([]);
   let [wantToReadBooks, setWantToReadBooks] = useState([]);
-
-  let [searchedBooks, setSearchedBooks] = useState([]);
-
-  let [searchInp, setSearchInp] = useState([]);
 
   useEffect(() => {
     getBooks(setCurrentlyReadingBooks, setReadBooks, setWantToReadBooks);
