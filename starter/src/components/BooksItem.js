@@ -25,56 +25,26 @@ const BookItem = ({
             }}
           ></div>
           <div className="book-shelf-changer">
-            <select defaultValue={shelfName}>
-              <option value="none" disabled>
+            <select
+              defaultValue={shelfName}
+              onClick={(e) => {
+                let value = e.target.value;
+                let toShelf;
+                if (value === "read") toShelf = setReadBooks;
+                else if (value === "wantToRead") toShelf = setWantToReadBooks;
+                else if (value === "currentlyReading")
+                  toShelf = setCurrentlyReadingBooks;
+
+                updateBooks(book, value, removeFromShelvesArr, toShelf);
+              }}
+            >
+              <option value="_" disabled>
                 Move to...
               </option>
-              <option
-                // selected={shelfName === "currentlyReading"}
-                onClick={() => {
-                  updateBooks(
-                    book,
-                    "currentlyReading",
-                    removeFromShelvesArr,
-                    setCurrentlyReadingBooks
-                  );
-                }}
-                value="currentlyReading"
-              >
-                Currently Reading
-              </option>
-              <option
-                // selected={shelfName === "wantToRead"}
-                onClick={() => {
-                  updateBooks(
-                    book,
-                    "wantToRead",
-                    removeFromShelvesArr,
-                    setWantToReadBooks
-                  );
-                }}
-                value="wantToRead"
-              >
-                Want to Read
-              </option>
-              <option
-                // selected={shelfName === "read"}
-                onClick={() => {
-                  updateBooks(book, "read", removeFromShelvesArr, setReadBooks);
-                }}
-                value="read"
-              >
-                Read
-              </option>
-              <option
-                // selected={shelfName === "none"}
-                onClick={() => {
-                  updateBooks(book, "none", removeFromShelvesArr);
-                }}
-                value="NONE"
-              >
-                None
-              </option>
+              <option value="currentlyReading">Currently Reading</option>
+              <option value="wantToRead">Want to Read</option>
+              <option value="read">Read</option>
+              <option value="none">None</option>
             </select>
           </div>
         </div>
