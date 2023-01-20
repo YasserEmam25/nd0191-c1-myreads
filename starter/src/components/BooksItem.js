@@ -27,7 +27,7 @@ const BookItem = ({
           <div className="book-shelf-changer">
             <select
               defaultValue={shelfName}
-              onClick={(e) => {
+              onClickCapture={(e) => {
                 let value = e.target.value;
                 let toShelf;
                 if (value === "read") toShelf = setReadBooks;
