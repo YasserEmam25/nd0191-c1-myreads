@@ -25,9 +25,10 @@ const MainPage = () => {
           <div className="bookshelf">
             <h2 className="bookshelf-title">Currently Reading</h2>
             <div className="bookshelf-books">
-              <ol className="books-grid">
+              <ol className="books-grid" key={"CurrentlyReadinShelf"}>
                 {currentlyReadingBooks.map((book, i) => (
                   <BookItem
+                    key={book.id}
                     book={book}
                     removeFromShelvesArr={[setCurrentlyReadingBooks]}
                     setCurrentlyReadingBooks={setCurrentlyReadingBooks}
@@ -42,9 +43,10 @@ const MainPage = () => {
           <div className="bookshelf">
             <h2 className="bookshelf-title">Want to Read</h2>
             <div className="bookshelf-books">
-              <ol className="books-grid">
+              <ol className="books-grid" key={"WantToReadShelf"}>
                 {wantToReadBooks.map((book, i) => (
                   <BookItem
+                    key={book.id}
                     book={book}
                     removeFromShelvesArr={[setWantToReadBooks]}
                     setCurrentlyReadingBooks={setCurrentlyReadingBooks}
@@ -59,9 +61,10 @@ const MainPage = () => {
           <div className="bookshelf">
             <h2 className="bookshelf-title">Read</h2>
             <div className="bookshelf-books">
-              <ol className="books-grid">
+              <ol className="books-grid" key={"ReadShelf"}>
                 {readBooks.map((book, i) => (
                   <BookItem
+                    key={book.id}
                     book={book}
                     removeFromShelvesArr={[setReadBooks]}
                     setCurrentlyReadingBooks={setCurrentlyReadingBooks}
